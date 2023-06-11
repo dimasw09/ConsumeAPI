@@ -7,6 +7,7 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
+  
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -22,7 +23,7 @@ class _MyAppState extends State<MyApp> {
         posts = List<Map<String, dynamic>>.from(jsonDecode(response.body));
       });
     } else {
-      throw Exception('Failed to load data');
+      throw Exception('Gagal memuat data');
     }
   }
 
@@ -35,43 +36,41 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false, // Menghilangkan Debug
       home: Scaffold(
         appBar: AppBar(
           title: Text('Consume API'),
         ),
-        backgroundColor: Colors.blue, // Ubah warna latar belakang aplikasi
+        backgroundColor: Color.fromARGB(255, 255, 255, 255), // Ubah warna latar belakang aplikasi
         body: SingleChildScrollView(
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                posts.isEmpty
-                    ? CircularProgressIndicator()
-                    : ListView.builder(
+                posts.isEmpty?
+                 CircularProgressIndicator():
+                     ListView.builder(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
                         itemCount: posts.length,
                         itemBuilder: (context, index) {
                           final post = posts[index];
                           return Card(
-                            color: Colors
-                                .green, // Ubah warna latar belakang card menjadi hijau
+                            color: Color.fromARGB(255, 32, 117, 35), // Ubah warna latar belakang card menjadi hijau
                             child: Column(
                               children: [
                                 ListTile(
                                   title: Text(
                                     post['title'],
                                     style: TextStyle(
-                                      color: Colors
-                                          .white, // Ubah warna teks judul menjadi putih
+                                      color: Color.fromARGB(255, 255, 255, 255), // Ubah warna teks judul menjadi putih
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                   subtitle: Text(
                                     post['body'],
                                     style: TextStyle(
-                                      color: Colors
-                                          .white, // Ubah warna teks deskripsi menjadi putih
+                                      color: Color.fromARGB(255, 255, 255, 255), // Ubah warna teks deskripsi menjadi putih
                                     ),
                                   ),
                                 ),
@@ -88,16 +87,14 @@ class _MyAppState extends State<MyApp> {
                                                 title: Text(
                                                   comment['name'],
                                                   style: TextStyle(
-                                                    color: Colors
-                                                        .white, // Ubah warna teks komentar menjadi putih
+                                                    color: Color.fromARGB(255, 255, 255, 255), // Ubah warna teks komentar menjadi putih
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
                                                 subtitle: Text(
                                                   comment['email'],
                                                   style: TextStyle(
-                                                    color: Colors
-                                                        .white, // Ubah warna teks email menjadi putih
+                                                    color: Color.fromARGB(255, 255, 255, 255), // Ubah warna teks email menjadi putih
                                                   ),
                                                 ),
                                               ),
@@ -106,10 +103,9 @@ class _MyAppState extends State<MyApp> {
                                       );
                                     } else if (snapshot.hasError) {
                                       return Text(
-                                        'Failed to load comments',
+                                        'Gagal memuat komentar',
                                         style: TextStyle(
-                                          color: Colors
-                                              .white, // Ubah warna teks pesan error menjadi putih
+                                          color: Color.fromARGB(255, 255, 255, 255), // Ubah warna teks pesan error menjadi putih
                                         ),
                                       );
                                     }
@@ -130,8 +126,7 @@ class _MyAppState extends State<MyApp> {
                                                 (photo) => Container(
                                                   width: 200,
                                                   child: Card(
-                                                    color: Colors
-                                                        .white, // Ubah warna latar belakang card foto menjadi putih
+                                                    color: Color.fromARGB(255, 255, 255, 255), // Ubah warna latar belakang card foto menjadi putih
                                                     child: Column(
                                                       children: [
                                                         Image.network(
@@ -144,8 +139,7 @@ class _MyAppState extends State<MyApp> {
                                                         Text(
                                                           photo['title'],
                                                           style: TextStyle(
-                                                            color: Colors
-                                                                .black, // Ubah warna teks judul foto menjadi hitam
+                                                            color: Color.fromARGB(255, 0, 0, 0), // Ubah warna teks judul foto menjadi hitam
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                           ),
@@ -160,10 +154,9 @@ class _MyAppState extends State<MyApp> {
                                       );
                                     } else if (snapshot.hasError) {
                                       return Text(
-                                        'Failed to load photos',
+                                        'Gagal memuat foto',
                                         style: TextStyle(
-                                          color: Colors
-                                              .white, // Ubah warna teks pesan error menjadi putih
+                                          color: Color.fromARGB(255, 255, 255, 255), // Ubah warna teks pesan error menjadi putih
                                         ),
                                       );
                                     }
@@ -191,7 +184,7 @@ class _MyAppState extends State<MyApp> {
       final comments = jsonDecode(response.body) as List<dynamic>;
       return comments;
     } else {
-      throw Exception('Failed to load data');
+      throw Exception('Gagal memuat data');
     }
   }
 
@@ -202,7 +195,7 @@ class _MyAppState extends State<MyApp> {
       final photos = jsonDecode(response.body) as List<dynamic>;
       return photos;
     } else {
-      throw Exception('Failed to load data');
+      throw Exception('Gagal memuat data');
     }
   }
 }
